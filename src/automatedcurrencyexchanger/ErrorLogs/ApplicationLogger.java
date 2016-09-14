@@ -19,7 +19,7 @@ public class ApplicationLogger {
 
     private static Handler logFile;
     
-    private ApplicationLogger(){}
+    //private ApplicationLogger(){}
 
     public static Logger getNewLogger(String loggerName) {
         Logger tempLogger = Logger.getLogger(loggerName);
