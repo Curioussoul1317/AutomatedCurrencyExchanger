@@ -19,7 +19,6 @@ import javax.imageio.ImageIO;
  *
  * @author CouriousSoul
  */
-
 public class ImageBinarization {
 
     private static final Logger APP_LOG = automatedcurrencyexchanger.ErrorLogs.ApplicationLogger.getNewLogger(ImageProcessing.class.getName());
@@ -27,42 +26,40 @@ public class ImageBinarization {
     private static final String SUB_PATH = (IMAGE_PATH.GetImagePaths("croped", null));
 //    private static int size = 150;
 //    private static int pixSize = 1;
-    
-      private static int size =28;
-    private static int pixSize=1;
 
-    public static String[] LoadImage() {
-        String[] numberArray = null;
+    private static int size = 339;
+    private static int pixSize = 1;
+
+    public static String LoadImage(String ToBinary) throws Exception {
+      
+        String[] BinarryArray = null;
+        String output = "";
         try {
 
-            BufferedImage image = ImageIO.read(new File(SUB_PATH + "A.png"));
-            numberArray = toStringArray(image);
+            BufferedImage image = ImageIO.read(new File(ToBinary));
+            BinarryArray = toArray(image);
+  
             int count = 0;
-            for (String s : numberArray) {
-                System.out.print(s + ",");
-                count++;
-
-                if (count == size) {
-                    System.out.println("");
-                    count = 0;
-                }
+            for (String s : BinarryArray) {
+                output = output + s + ",";
             }
-        } catch (Exception ex) {
-            Logger.getLogger(ImageBinarization.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            APP_LOG.log(Level.SEVERE, "Binarrazing", e);
+
         }
-        
-        return numberArray;
-   
-    
+        output = output.substring(0, output.length() - 1);
+        System.out.println(output);
+        ImageResult (BinarryArray);
+        return output;
     }
 
-    private static String[] toStringArray(BufferedImage numberImage) throws Exception {
+    private static String[] toArray(BufferedImage NumerizedImage) throws Exception {
         String[] arrayRep = new String[size * size];
         try {
             int arrayIndex = 0;
             for (int row = 0; row < size; row++) {
                 for (int col = 0; col < size; col++) {
-                    BufferedImage subImage = numberImage.getSubimage(col, row, pixSize, pixSize);
+                    BufferedImage subImage = NumerizedImage.getSubimage(col, row, pixSize, pixSize);
 
                     int num = subImage.getRGB(0, 0);
                     //System.out.println(num);

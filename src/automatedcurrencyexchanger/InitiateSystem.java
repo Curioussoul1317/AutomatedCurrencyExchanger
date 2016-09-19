@@ -108,16 +108,21 @@ public class InitiateSystem extends javax.swing.JFrame {
 //        public void run() {
 //            
              Startsys();
-                 int segmentType = 1;
-      SegmentSize();
+           
+                // int segmentType = 1;
+        try {
+      //      SegmentSize();
 //       ImageResult ();
 //        }
 //    };
 //    thread.start();
-//}  
+//}
  
-//this.setVisible(false);
-//        new CurrencyExchanger().setVisible(true); // Open the CurrencyExchanger UI..
+this.setVisible(false);
+        new CurrencyExchanger().setVisible(true); // Open the CurrencyExchanger UI..
+        } catch (Exception ex) {
+            Logger.getLogger(InitiateSystem.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     

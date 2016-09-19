@@ -32,10 +32,10 @@ public class RecognitionProcess {
  
     
     
-    public static void ImageResult () throws Exception{
+    public static void ImageResult (String[] numberArray) throws Exception{
         
-          String[] numberArray = null;
-          numberArray = ImageBinarization.LoadImage();
+        //  String[] numberArray = null;
+        //  numberArray = ImageBinarization.LoadImage();
                  
     
               ArrayList<Double> results = predictNumber(numberArray);
@@ -61,9 +61,9 @@ public class RecognitionProcess {
                   PathConfiguration ImPath = new PathConfiguration();
                   String masterPath = (ImPath.GetImagePaths("original", null));
                  // ImageAcquisition.captureImage(masterPath,i);
-                  int segmentType = i;
-                  SegmentSize();
-                  ImageInput(i);
+//                  int segmentType = i;
+//               //   SegmentSize();
+//                  ImageInput(i);
                 
     
     

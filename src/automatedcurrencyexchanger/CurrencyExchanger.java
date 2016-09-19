@@ -11,29 +11,46 @@ package automatedcurrencyexchanger;
  */
 import static CurrencyRecognition.RecognitionProcess.ImageResult;
 import automatedcurrencyexchanger.ErrorLogs.PathConfiguration;
+import automatedcurrencyexchanger.ImageProcess.ImageAcquisition;
+import automatedcurrencyexchanger.ImageProcess.ImageProcessing;
 import static automatedcurrencyexchanger.ImageProcess.ImageProcessing.SegmentSize;
 import javax.swing.ImageIcon;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
-
+import java.util.logging.Logger;
+import javax.swing.JLabel;
 
 public class CurrencyExchanger extends javax.swing.JFrame {
- private HashMap<Integer, Integer> addedDollors;
- boolean valuesAdded = false;
+    private static final Logger APP_LOG = automatedcurrencyexchanger.ErrorLogs.ApplicationLogger.getNewLogger(ImageProcessing.class.getName());
+    private static final PathConfiguration IMAGE_PATH = new PathConfiguration();
+    private static final String MASTER_PATH = (IMAGE_PATH.GetImagePaths("original", null));
+    private static final String SUB_PATH = (IMAGE_PATH.GetImagePaths("croped", null));
+    private HashMap<Integer, Integer> addedDollors;
+    boolean valuesAdded = false;
+    public static JLabel mainImage;
+    public static JLabel Logo;
+    public static JLabel ParaOne;
+    public static JLabel ParTwo;
+    public static JLabel MergIm;
+    public static JLabel GrayIm;
+
     /**
      * Creates new form CurrencyExchanger
      */
     public CurrencyExchanger() {
         initComponents();
         initiateHashMap();
-        //        ImageIcon imgThisImg = new ImageIcon("C:\\Users\\CouriousSoul\\Desktop\\AutomatedCurrencyExchanger\\AutomatedCurrencyExchanger\\SystemImages\\SecondBack.jpg");
-//       jLabelBackGround.setIcon(imgThisImg);
-       // CurrencyExchanger.setContentPane(imgThisImg);
-     
+        mainImage = this.jLabelMainImage;
+        Logo= this.jLabelColorCheck;
+        ParaOne =this.jLabelSegmentone;
+        ParTwo=this.jLabelSegmenttwo;
+        MergIm=this.jLabelMergedImage;
+        GrayIm=this.jLabelGrayScalImage;
+
     }
-        
-  public void initiateHashMap() {
+
+    public void initiateHashMap() {
         addedDollors = new HashMap<>();
         addedDollors.put(5, 0);
         addedDollors.put(10, 0);
@@ -59,7 +76,7 @@ public class CurrencyExchanger extends javax.swing.JFrame {
                 message += tempMsg;
             }
         }
-      //  jLabel1.setText(message);
+        //  jLabel1.setText(message);
     }
 
     public int getValue() {
@@ -72,11 +89,6 @@ public class CurrencyExchanger extends javax.swing.JFrame {
         return enteredDollor;
     }
 
-        
-        
-        
-
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,10 +98,21 @@ public class CurrencyExchanger extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabelMainImage = new javax.swing.JLabel();
+        jLabelMainImageText = new javax.swing.JLabel();
+        jLabelColorCheck = new javax.swing.JLabel();
+        jLabelColorCheckText = new javax.swing.JLabel();
+        jLabelSegmentone = new javax.swing.JLabel();
+        jLabelSegmenttwo = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         AddDollars = new javax.swing.JButton();
         ButtonExchnage = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabelMergedImage = new javax.swing.JLabel();
+        jLabelGrayScalImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1366, 768));
@@ -98,14 +121,78 @@ public class CurrencyExchanger extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
+        jLabel1.setFont(new java.awt.Font("Aharoni", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel1.setText("AUTOMATED CURRENCY EXCHANGE SYSTEM");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(20, 10, 1330, 70);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setMaximumSize(new java.awt.Dimension(550, 600));
+        jPanel1.setMinimumSize(new java.awt.Dimension(550, 600));
+        jPanel1.setPreferredSize(new java.awt.Dimension(550, 600));
+
+        jLabelMainImage.setText("jLabel2");
+
+        jLabelMainImageText.setText("Acqured Image");
+
+        jLabelColorCheck.setText("jLabel2");
+
+        jLabelColorCheckText.setText("jLabel2");
+
+        jLabelSegmentone.setText("jLabel2");
+
+        jLabelSegmenttwo.setText("jLabel2");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelMainImage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelMainImageText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelColorCheckText)
+                            .addComponent(jLabelColorCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelSegmenttwo, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabelSegmentone, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelMainImage, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelMainImageText)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelColorCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                            .addComponent(jLabelSegmenttwo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelColorCheckText))
+                    .addComponent(jLabelSegmentone))
+                .addGap(20, 20, 20))
+        );
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(20, 90, 530, 660);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
         jButton1.setText("Press Continue");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(420, 220, 151, 23);
 
         AddDollars.setText("Exchange More");
         AddDollars.addActionListener(new java.awt.event.ActionListener() {
@@ -113,8 +200,6 @@ public class CurrencyExchanger extends javax.swing.JFrame {
                 AddDollarsActionPerformed(evt);
             }
         });
-        getContentPane().add(AddDollars);
-        AddDollars.setBounds(420, 260, 150, 23);
 
         ButtonExchnage.setText("Exchange");
         ButtonExchnage.addActionListener(new java.awt.event.ActionListener() {
@@ -122,31 +207,97 @@ public class CurrencyExchanger extends javax.swing.JFrame {
                 ButtonExchnageActionPerformed(evt);
             }
         });
-        getContentPane().add(ButtonExchnage);
-        ButtonExchnage.setBounds(420, 300, 150, 23);
 
-        jLabel1.setFont(new java.awt.Font("Aharoni", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setText("AUTOMATED CURRENCY EXCHANGE SYSTEM");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(20, 10, 1330, 70);
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AddDollars, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ButtonExchnage, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(510, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(AddDollars)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ButtonExchnage)
+                .addGap(60, 60, 60))
+        );
+
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(1140, 90, 210, 660);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setMaximumSize(new java.awt.Dimension(550, 600));
+        jPanel3.setMinimumSize(new java.awt.Dimension(550, 600));
+        jPanel3.setPreferredSize(new java.awt.Dimension(550, 600));
+
+        jLabelMergedImage.setText("jLabel2");
+
+        jLabelGrayScalImage.setText("jLabel2");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelMergedImage, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelGrayScalImage, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelMergedImage, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                    .addComponent(jLabelGrayScalImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(223, 223, 223))
+        );
+
+        getContentPane().add(jPanel3);
+        jPanel3.setBounds(570, 90, 550, 660);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-              PathConfiguration ImPath = new PathConfiguration();
-        
-     
-//     String masterPath = (ImPath.GetImagePaths("original", null));
-//     ImageCapture.captureImage(masterPath);
-        
-//      int segmentType = 1;
-//      SegmentSize();
-//       ImageResult ();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        PathConfiguration ImPath = new PathConfiguration();
 
+        String masterPath = (ImPath.GetImagePaths("original", null));
+        ImageAcquisition.captureImage(masterPath);
+
+        SegmentSize(0);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+      
+    
+    public static void getImages() {
+        ImageIcon MImg = new ImageIcon(MASTER_PATH);
+        mainImage.setIcon(MImg);
+        ImageIcon LImg = new ImageIcon(SUB_PATH + "GreenSeal.jpg");
+        Logo.setIcon(LImg);
+        ImageIcon POImg = new ImageIcon(SUB_PATH + "image0.jpg");
+        ParaOne.setIcon(POImg);
+        ImageIcon PTImg = new ImageIcon(SUB_PATH + "image1.jpg");
+        ParTwo.setIcon(PTImg);
+        ImageIcon MRImg = new ImageIcon(SUB_PATH + "MergedImg.jpg");
+        MergIm.setIcon(MRImg);
+        ImageIcon GImg = new ImageIcon(SUB_PATH + "GrayScal.jpg");
+        GrayIm.setIcon(GImg);
+
+    }
     private void AddDollarsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddDollarsActionPerformed
         int val = getValue();
         addToList(val);
@@ -155,7 +306,7 @@ public class CurrencyExchanger extends javax.swing.JFrame {
     }//GEN-LAST:event_AddDollarsActionPerformed
 
     private void ButtonExchnageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExchnageActionPerformed
-       String message = "";
+        String message = "";
         int total = 0;
 
         for (int key : addedDollors.keySet()) {
@@ -170,7 +321,7 @@ public class CurrencyExchanger extends javax.swing.JFrame {
 
         message += "\n\n";
         message += "Total is" + total;
-       // jLabel1.setText(message);        // TODO add your handling code here:
+        // jLabel1.setText(message);        // TODO add your handling code here:
     }//GEN-LAST:event_ButtonExchnageActionPerformed
 
     /**
@@ -213,5 +364,16 @@ public class CurrencyExchanger extends javax.swing.JFrame {
     private javax.swing.JButton ButtonExchnage;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelColorCheck;
+    private javax.swing.JLabel jLabelColorCheckText;
+    private javax.swing.JLabel jLabelGrayScalImage;
+    private javax.swing.JLabel jLabelMainImage;
+    private javax.swing.JLabel jLabelMainImageText;
+    private javax.swing.JLabel jLabelMergedImage;
+    private javax.swing.JLabel jLabelSegmentone;
+    private javax.swing.JLabel jLabelSegmenttwo;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }

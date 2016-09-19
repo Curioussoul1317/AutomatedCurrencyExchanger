@@ -26,13 +26,13 @@ public class NewMain {
 //     
      String masterPath = (ImPath.GetImagePaths("original", null));
         ImageAcquisition.captureImage(masterPath);
-////        
-//      int segmentType = 1;
-//                SegmentSize();
+//        
+     
+               
                      
-       int segmentType = 1;
-      SegmentSize();
-       ImageResult ();
+      
+      SegmentSize(0);
+     //  ImageResult ();
     }
     
 }

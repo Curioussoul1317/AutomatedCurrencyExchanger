@@ -8,8 +8,10 @@ package automatedcurrencyexchanger.ImageProcess;
 import automatedcurrencyexchanger.ErrorLogs.ApplicationLogger;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import jdk.nashorn.internal.ir.CatchNode;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -26,31 +28,29 @@ public class ImageAcquisition {
     private static LightControlls lcObject = LightControlls.lightControll();
     private static final Logger appLog
             = automatedcurrencyexchanger.ErrorLogs.ApplicationLogger.getNewLogger(ImageAcquisition.class.getName());
-    
-   public static void captureImage(String path ) {
-       int lightValue=0;
-       if (lightValue == 0) {
-         lcObject.OnWhiteLight();
-          AccessCam(path);
-        lcObject.OffWhiteLight();
-       
-       } else {
+
+    public static void captureImage(String path) {
+        int lightValue = 0;
+        if (lightValue == 0) {
+            lcObject.OnWhiteLight();
+            AccessCam(path);
+            lcObject.OffWhiteLight();
+
+        } else {
             lcObject.OnUvLight();
-           AccessCam(path);
-           lcObject.OffUvLight();
-       
-            
-       }
-       
- 
-   } 
+            AccessCam(path);
+            lcObject.OffUvLight();
+
+        }
+
+    }
 
     public static void AccessCam(String path) {
 
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         VideoCapture camera = new VideoCapture(0);
- boolean wset = camera.set(Highgui.CV_CAP_PROP_FRAME_WIDTH, 7376);
-    boolean hset = camera.set(Highgui.CV_CAP_PROP_FRAME_HEIGHT, 3120);
+        boolean wset = camera.set(Highgui.CV_CAP_PROP_FRAME_WIDTH, 7376);
+        boolean hset = camera.set(Highgui.CV_CAP_PROP_FRAME_HEIGHT, 3120);
         if (!camera.isOpened()) {
             String errorMessage = "Input Device not found";
             appLog.log(Level.SEVERE, errorMessage);
@@ -66,18 +66,13 @@ public class ImageAcquisition {
             }
         }
         camera.release();
-         
 
     }
-
 }
 
 class LightControlls {
 
     private static LightControlls lc;
-
-//    private LightControlls() {
-//    }
 
     public static LightControlls lightControll() {
         if (lc == null) {

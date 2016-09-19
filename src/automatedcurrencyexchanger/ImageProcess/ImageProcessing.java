@@ -5,7 +5,9 @@
  */
 package automatedcurrencyexchanger.ImageProcess;
 
+import static automatedcurrencyexchanger.CurrencyExchanger.getImages;
 import automatedcurrencyexchanger.ErrorLogs.PathConfiguration;
+//import static automatedcurrencyexchanger.ImageProcess.DirectionValidation.ImageInput;
 import static automatedcurrencyexchanger.ImageProcess.ImageBinarization.LoadImage;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -13,11 +15,14 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import weka.gui.ComponentHelper;
 
 /**
  *
@@ -29,72 +34,40 @@ public class ImageProcessing {
     private static final PathConfiguration IMAGE_PATH = new PathConfiguration();
     private static final String MASTER_PATH = (IMAGE_PATH.GetImagePaths("original", null));
     private static final String SUB_PATH = (IMAGE_PATH.GetImagePaths("croped", null));
-    private static int segmentType = 0;
 
-    public static void SegmentSize() {
+   
+
+    public static void SegmentSize(int segmentType)  {
 
         switch (segmentType) {
 
             case 0:
-                // Extract only the dollar ColouImage
-                // L,     T,     R,  B
-                // SegmentImage(MASTER_PATH, MASTER_PATH, 131, 2, 2, 2);
-                 SegmentImage(MASTER_PATH, MASTER_PATH, 35, 425, 2160, 960);
-               //  SegmentImage(MASTER_PATH, SUB_PATH + "Red.jpg", 50, 20, 1000, 3010);
-                 Grayscale();
-                //ImageConfrimation();
-                
-                break;
+               
+                // L,     -T,     R,  B
+               SegmentImage(MASTER_PATH, MASTER_PATH, 355, 250, 1640, 690);
+               ImageConfrimation(MASTER_PATH);
+              
+               break;
             case 1:
-                // Confirm the dollar direction
-               SegmentImage(MASTER_PATH, SUB_PATH + "GreanLogo.jpg", 5050, 1100, 770, 720);
-                
-               // GetPixelColor();
-
+                  SegmentImage(MASTER_PATH, SUB_PATH + "GreenSeal.jpg", 1085, 240, 250, 210);
+                  GetPixelColor(SUB_PATH + "GreenSeal.jpg");
+               
                 break;
             case 2:
-//           
-                // parameters to check dollar
-                SegmentImage(MASTER_PATH, SUB_PATH + "image0.jpg", 50, 20, 1000, 3010);
-                SegmentImage(MASTER_PATH, SUB_PATH + "image1.jpg", 2000, 20, 2050, 3010);
-                SegmentImage(MASTER_PATH, SUB_PATH + "image2.jpg", 2000, 20, 2050, 3010);
-                SegmentImage(MASTER_PATH, SUB_PATH + "image3.jpg", 1000, 20, 50, 3010);
-
-                Mergeimage();
+             
+                   SegmentImage(MASTER_PATH, SUB_PATH + "image0.jpg", 100, 200, 340, 220);
+                   SegmentImage(MASTER_PATH, SUB_PATH + "image1.jpg", 1300, 40, 340, 120);
+                   Mergeimage();
                 break;
-//            case 3:
-//                //Dollar one security ribbon
-//                SegmentImage(MASTER_PATH, SUB_PATH + "image0.jpg", 100, 100, 100, 100);
-//                break;
-//            case 4:
-//                //Dollar two security ribbon
-//                SegmentImage(MASTER_PATH, SUB_PATH + "image0.jpg", 100, 100, 100, 100);
-//                break;
-            case 5:
-                //Dollar five security ribbon
-                SegmentImage(MASTER_PATH, SUB_PATH + "image0.jpg", 100, 100, 100, 100);
-                
+            case 3:
+                   SegmentImage(SUB_PATH + "MergedImg.jpg",SUB_PATH + "MergedImg.jpg", 1,1 , 339, 339);
+                   Grayscale(SUB_PATH + "MergedImg.jpg");
+                    getImages();
                 break;
-            case 10:
-                //Dollar Ten security ribbon
-                SegmentImage(MASTER_PATH, SUB_PATH + "image0.jpg", 100, 100, 100, 100);
-                break;
-            case 20:
-                //Dollar Twentty security ribbon
-                SegmentImage(MASTER_PATH, SUB_PATH + "image0.jpg", 100, 100, 100, 100);
-                break;
-            case 50:
-                //Dollar Fifitty security ribbon
-                SegmentImage(MASTER_PATH, SUB_PATH + "image0.jpg", 100, 100, 100, 100);
-                break;
-            case 100:
-                //Dollar Fifitty security ribbon
-                SegmentImage(MASTER_PATH, SUB_PATH + "image0.jpg", 100, 100, 100, 100);
-                break;
+         
             default:
-
-                // Confirm the dollar direction
-//                SegmentImage(MASTER_PATH, SUB_PATH + "GreanLogo.jpg", 5050, 1100, 770, 720);
+                  // Confirm the dollar direction
+//                SegmentImage(MASTER_PATH, SUB_PATH + "GreenSeal.jpg", 5050, 1100, 770, 720);
 //                GetPixelColor();
                 break;
 
@@ -113,38 +86,44 @@ public class ImageProcessing {
             APP_LOG.log(Level.SEVERE, "Croping failed", e);
         }
     }
-    public static void ImageConfrimation() {
-
+    
+    
+    
+    public static int ImageConfrimation(String MasterImage) {
+        int pixel =0;
         try {
+            
+            BufferedImage image = ImageIO.read(new File(MasterImage));
             Set<Integer> colors = new HashSet<Integer>();
-            BufferedImage image = ImageIO.read(new File(MASTER_PATH));
             int w = image.getWidth();
             int h = image.getHeight();
             for (int y = 0; y < h; y++) {
                 for (int x = 0; x < w; x++) {
-                    int pixel = image.getRGB(x, y);
+                    pixel = image.getRGB(x, y);
                     colors.add(pixel);
                 }
             }
             System.out.println("There are full image " + colors.size() + " colors");
 
-            if (colors.size() <  150000) {
+            if (colors.size() <  30000) {
                 System.out.println("Please input dolaa");
             } else {
-               segmentType = 1;
-                SegmentSize();
-
+             
+                SegmentSize(1);
+               
             }
         } catch (IOException e) {
             APP_LOG.log(Level.SEVERE, "ColorSize ", e);
         }
-
+    return pixel;
     }
-    public static void GetPixelColor() {
+    
+ 
+     public static void GetPixelColor(String Logo) {
 
         try {
             Set<Integer> colors = new HashSet<Integer>();
-            BufferedImage image = ImageIO.read(new File(SUB_PATH + "GreanLogo.jpg"));
+            BufferedImage image = ImageIO.read(new File(Logo));
             int w = image.getWidth();
             int h = image.getHeight();
             for (int y = 0; y < h; y++) {
@@ -155,13 +134,13 @@ public class ImageProcessing {
             }
             System.out.println("There are " + colors.size() + " colors");
 
-            if (colors.size() < 60000) {
-                RotateImage();
-                segmentType = 1;
-                SegmentSize();
+            if (colors.size() < 11111) {
+                RotateImage(MASTER_PATH);
+               
+                SegmentSize(1);
             } else {
-                segmentType = 2;
-                SegmentSize();
+              
+                SegmentSize(2);
 
             }
         } catch (IOException e) {
@@ -169,15 +148,16 @@ public class ImageProcessing {
         }
 
     }
+ 
 
-    public static void RotateImage() {
+    public static void RotateImage(String Image) {
 
-        BufferedImage ImageIn;
+        
         try {
-            ImageIn = ImageIO.read(new File(MASTER_PATH));
+            BufferedImage ImageIn = ImageIO.read(new File(Image));
             BufferedImage ImageOut = Rotate(ImageIn, 180);
-            ImageIO.write(ImageOut, "jpg", new File(MASTER_PATH));
-        } catch (IOException e) {
+            ImageIO.write(ImageOut, "jpg", new File(Image));
+            } catch (IOException e) {
             APP_LOG.log(Level.SEVERE, "Image Unable rotate", e);
         }
 
@@ -201,10 +181,10 @@ public class ImageProcessing {
 
     }
 
-    public static void Mergeimage() {
+    public static void Mergeimage()  {
 
-        int rows = 1;
-        int cols = 4;
+        int rows = 2;
+        int cols = 1;
         int SubPieces = rows * cols;
 
         int SubPieceWidth, SubPieceHeight;
@@ -240,32 +220,63 @@ public class ImageProcessing {
         } catch (IOException e) {
             APP_LOG.log(Level.SEVERE, "Merging failed", e);
         }
-        Grayscale();
+         SegmentSize(3);
+       
     }
 
-    public static void Grayscale() {
+    public static void Grayscale(String ToGray)  {
 
-        try {
+       try  {
+       
+         BufferedImage original = ImageIO.read(new File(SUB_PATH + "MergedImg.jpg"));
+         BufferedImage binarized = new BufferedImage(original.getWidth(), original.getHeight(),BufferedImage.TYPE_BYTE_BINARY);
 
-            BufferedImage ColouImage = ImageIO.read(new File(SUB_PATH + "MergedImg.jpg"));
+         int red;
+         int newPixel;
+         int threshold =128;
 
-            double image_width = ColouImage.getWidth();
-            double image_height = ColouImage.getHeight();
+            for(int i=0; i<original.getWidth(); i++) 
+            {
+                for(int j=0; j<original.getHeight(); j++)
+                {
 
-            BufferedImage BalckandwhiteImage = null;
-            BufferedImage img = ColouImage;
+                    // Get pixels
+                  red = new Color(original.getRGB(i, j)).getRed();
 
-            BalckandwhiteImage = new BufferedImage((int) image_width, (int) image_height,
-                    BufferedImage.TYPE_BYTE_BINARY);
-            Graphics2D gg = BalckandwhiteImage.createGraphics();
-            gg.drawImage(img, 0, 0, img.getWidth(null), img.getHeight(null), null);
+                  int alpha = new Color(original.getRGB(i, j)).getAlpha();
 
-            ImageIO.write(BalckandwhiteImage, "jpg", new File(SUB_PATH + "MergedImg.png"));
+                  if(red > threshold)
+                    {
+                        newPixel = 0;
+                    }
+                    else
+                    {
+                        newPixel = 255;
+                    }
+                    newPixel = colorToRGB(alpha, newPixel, newPixel, newPixel);
+                    binarized.setRGB(i, j, newPixel);
 
-        } catch (Exception e) {
-            System.out.println(e);
+                }
+            } 
+            ImageIO.write(binarized, "jpg",new File(SUB_PATH + "GrayScal.jpg") );
+             LoadImage(SUB_PATH + "GrayScal.jpg");
+         }
+        catch (Exception e) 
+        {
+                APP_LOG.log(Level.SEVERE, "GrayScale failed", e);
+                
         }
- LoadImage();
-    }
 
+    }
+    
+     private static int colorToRGB(int alpha, int red, int green, int blue) {
+            int newPixel = 0;
+            newPixel += alpha;
+            newPixel = newPixel << 8;
+            newPixel += red; newPixel = newPixel << 8;
+            newPixel += green; newPixel = newPixel << 8;
+            newPixel += blue;
+
+            return newPixel;
+        }
 }
