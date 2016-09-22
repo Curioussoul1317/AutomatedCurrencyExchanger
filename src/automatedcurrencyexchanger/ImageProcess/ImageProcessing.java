@@ -5,9 +5,10 @@
  */
 package automatedcurrencyexchanger.ImageProcess;
 
+import static CurrencyRecognition.DollarColorValidation.ImageInput;
 import static automatedcurrencyexchanger.CurrencyExchanger.getImages;
 import automatedcurrencyexchanger.ErrorLogs.PathConfiguration;
-//import static automatedcurrencyexchanger.ImageProcess.DirectionValidation.ImageInput;
+//import static automatedcurrencyexchanger.ImageProcess.DollarColorValidation.ImageInput;
 import static automatedcurrencyexchanger.ImageProcess.ImageBinarization.LoadImage;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -38,31 +39,34 @@ public class ImageProcessing {
    
 
     public static void SegmentSize(int segmentType)  {
-
+try{
         switch (segmentType) {
 
             case 0:
                
                 // L,     -T,     R,  B
-               SegmentImage(MASTER_PATH, MASTER_PATH, 355, 250, 1640, 690);
-               ImageConfrimation(MASTER_PATH);
+             SegmentImage(MASTER_PATH, MASTER_PATH, 355, 250, 1640, 690);
+             SegmentImage(MASTER_PATH, SUB_PATH + "Color.jpg", 1300, 1, 340, 25);
+             ImageConfrimation(MASTER_PATH);
               
                break;
             case 1:
                   SegmentImage(MASTER_PATH, SUB_PATH + "GreenSeal.jpg", 1085, 240, 250, 210);
-                  GetPixelColor(SUB_PATH + "GreenSeal.jpg");
+                  
+                   GetPixelColor(SUB_PATH + "GreenSeal.jpg");
                
                 break;
             case 2:
              
                    SegmentImage(MASTER_PATH, SUB_PATH + "image0.jpg", 100, 200, 340, 220);
                    SegmentImage(MASTER_PATH, SUB_PATH + "image1.jpg", 1300, 40, 340, 120);
+                    // ImageInput(SUB_PATH + "Color.jpg");
                    Mergeimage();
                 break;
             case 3:
                    SegmentImage(SUB_PATH + "MergedImg.jpg",SUB_PATH + "MergedImg.jpg", 1,1 , 339, 339);
                    Grayscale(SUB_PATH + "MergedImg.jpg");
-                    getImages();
+                    
                 break;
          
             default:
@@ -72,6 +76,11 @@ public class ImageProcessing {
                 break;
 
         }
+}
+catch(Exception e)
+{
+
+}
 
     }
 
@@ -140,10 +149,10 @@ public class ImageProcessing {
                 SegmentSize(1);
             } else {
               
-                SegmentSize(2);
+              SegmentSize(2);  
 
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             APP_LOG.log(Level.SEVERE, "ColorSize ", e);
         }
 
@@ -234,7 +243,7 @@ public class ImageProcessing {
          int red;
          int newPixel;
          int threshold =128;
-
+           
             for(int i=0; i<original.getWidth(); i++) 
             {
                 for(int j=0; j<original.getHeight(); j++)
@@ -258,6 +267,7 @@ public class ImageProcessing {
 
                 }
             } 
+           
             ImageIO.write(binarized, "jpg",new File(SUB_PATH + "GrayScal.jpg") );
              LoadImage(SUB_PATH + "GrayScal.jpg");
          }

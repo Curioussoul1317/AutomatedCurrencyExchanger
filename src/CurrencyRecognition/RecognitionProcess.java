@@ -5,7 +5,7 @@
  */
 package CurrencyRecognition;
 
-import static CurrencyRecognition.CounterfeitValidation.ImageInput;
+//import static CurrencyRecognition.CounterfeitValidation.ImageInput;
 import java.io.IOException;
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -19,10 +19,16 @@ import java.io.FileReader;
 import weka.classifiers.Evaluation;
 import weka.classifiers.lazy.IBk;
 import NuralNet.PatternNeuralNet;
+import automatedcurrencyexchanger.CurrencyExchanger;
+import static automatedcurrencyexchanger.CurrencyExchanger.getDValue;
+
+
+
 import automatedcurrencyexchanger.ErrorLogs.PathConfiguration;
 import automatedcurrencyexchanger.ImageProcess.ImageAcquisition;
 import automatedcurrencyexchanger.ImageProcess.ImageBinarization;
 import static automatedcurrencyexchanger.ImageProcess.ImageProcessing.SegmentSize;
+import static javax.xml.bind.JAXBIntrospector.getValue;
 
 /**
  *
@@ -30,7 +36,7 @@ import static automatedcurrencyexchanger.ImageProcess.ImageProcessing.SegmentSiz
  */
 public class RecognitionProcess {
  
-    
+
     
     public static void ImageResult (String[] numberArray) throws Exception{
         
@@ -49,26 +55,24 @@ public class RecognitionProcess {
                  System.out.println(value);
                                 
                   double LastResult = (results.get(results.size()-1));
-//                  String aString = Double.toString(LastResult);
-//                 ///
-//                  System.out.println("Number : "+aString.substring(0, 1) );
-//                  String DValue=(aString.substring(0, 1));
-//                   System.out.println("Number u: "+aString);
-//                   /////
-                  
-                  Double d = LastResult ;
-                  Integer i = d.intValue(); // i becomes 5  
-                  PathConfiguration ImPath = new PathConfiguration();
-                  String masterPath = (ImPath.GetImagePaths("original", null));
-                 // ImageAcquisition.captureImage(masterPath,i);
-//                  int segmentType = i;
-//               //   SegmentSize();
-//                  ImageInput(i);
-                
-    
-    
+                String aString = Double.toString(LastResult);
+              System.out.println("LastResult"+LastResult);
+              System.out.println("aString"+aString);
+              
+               Double d = LastResult ;
+               Integer i = d.intValue();
+//              CurrencyExchanger Denovalue = new  CurrencyExchanger();
+//                  Denovalue.addToList(i);
+//       
+       
+              getDValue(i);
+  
+
     
     }
+    
+    
+
     
     public static ArrayList<Double> predictNumber(String[] instanceData) {
         
@@ -109,6 +113,8 @@ public class RecognitionProcess {
         }
         return PatternNeuralNet.template.lastInstance();
     }
+
+   
     
     
     

@@ -31,14 +31,14 @@ public class ImageBinarization {
     private static int pixSize = 1;
 
     public static String LoadImage(String ToBinary) throws Exception {
-      
+
         String[] BinarryArray = null;
         String output = "";
         try {
 
             BufferedImage image = ImageIO.read(new File(ToBinary));
             BinarryArray = toArray(image);
-  
+
             int count = 0;
             for (String s : BinarryArray) {
                 output = output + s + ",";
@@ -48,12 +48,12 @@ public class ImageBinarization {
 
         }
         output = output.substring(0, output.length() - 1);
-        System.out.println(output);
-        ImageResult (BinarryArray);
+       // System.out.println(output);
+     ImageResult(BinarryArray);
         return output;
     }
 
-    private static String[] toArray(BufferedImage NumerizedImage) throws Exception {
+    public static String[] toArray(BufferedImage NumerizedImage) throws Exception {
         String[] arrayRep = new String[size * size];
         try {
             int arrayIndex = 0;
@@ -75,6 +75,13 @@ public class ImageBinarization {
             System.out.println(e.toString());
         }
         return arrayRep;
+    }
+
+    public static void main(String[] args) throws Exception {
+        String imagePath = "C:\\Users\\CouriousSoul\\Desktop\\sanpleImagesForTest\\blackImage.jpg";
+        BufferedImage image = ImageIO.read(new File(imagePath));
+        String[] imageArray = toArray(image);
+        System.out.println(imageArray[0]);
     }
 
 }

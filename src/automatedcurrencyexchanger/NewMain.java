@@ -5,6 +5,7 @@
  */
 package automatedcurrencyexchanger;
 
+import static CurrencyRecognition.DollarColorValidation.ImageInput;
 import static CurrencyRecognition.RecognitionProcess.ImageResult;
 import automatedcurrencyexchanger.ErrorLogs.PathConfiguration;
 import automatedcurrencyexchanger.ImageProcess.ImageAcquisition;
@@ -32,6 +33,7 @@ public class NewMain {
                      
       
       SegmentSize(0);
+     
      //  ImageResult ();
     }
     

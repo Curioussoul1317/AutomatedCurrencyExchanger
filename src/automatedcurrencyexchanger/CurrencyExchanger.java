@@ -14,6 +14,8 @@ import automatedcurrencyexchanger.ErrorLogs.PathConfiguration;
 import automatedcurrencyexchanger.ImageProcess.ImageAcquisition;
 import automatedcurrencyexchanger.ImageProcess.ImageProcessing;
 import static automatedcurrencyexchanger.ImageProcess.ImageProcessing.SegmentSize;
+import java.awt.Image;
+import java.io.File;
 import javax.swing.ImageIcon;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +68,7 @@ public class CurrencyExchanger extends javax.swing.JFrame {
         printDollorMetrix();
     }
 
-    public void printDollorMetrix() {
+    public  void printDollorMetrix() {
         String message = "";
 
         for (int key : addedDollors.keySet()) {
@@ -76,18 +78,22 @@ public class CurrencyExchanger extends javax.swing.JFrame {
                 message += tempMsg;
             }
         }
-        //  jLabel1.setText(message);
+         jLabelDollarVallue.setText(message);
     }
 
-    public int getValue() {
-        int enteredDollor = 100;
-        return enteredDollor;
+    public static void getDValue(int Denominator) {
+       
+       // addToList(Denominator);
+        
+        
+        System.out.println("GOT THE DOLLAR"+Denominator);
+       
+       
+        
     }
 
-    public int getValue2() {
-        int enteredDollor = 5;
-        return enteredDollor;
-    }
+ 
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,20 +105,18 @@ public class CurrencyExchanger extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabelMainImage = new javax.swing.JLabel();
-        jLabelMainImageText = new javax.swing.JLabel();
-        jLabelColorCheck = new javax.swing.JLabel();
-        jLabelColorCheckText = new javax.swing.JLabel();
-        jLabelSegmentone = new javax.swing.JLabel();
-        jLabelSegmenttwo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         AddDollars = new javax.swing.JButton();
         ButtonExchnage = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        jLabelMainImage = new javax.swing.JLabel();
+        jLabelDollarVallue = new javax.swing.JLabel();
+        jLabelSegmentone = new javax.swing.JLabel();
+        jLabelSegmenttwo = new javax.swing.JLabel();
+        jLabelColorCheck = new javax.swing.JLabel();
         jLabelMergedImage = new javax.swing.JLabel();
         jLabelGrayScalImage = new javax.swing.JLabel();
+        jLabelback = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1366, 768));
@@ -126,64 +130,6 @@ public class CurrencyExchanger extends javax.swing.JFrame {
         jLabel1.setText("AUTOMATED CURRENCY EXCHANGE SYSTEM");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(20, 10, 1330, 70);
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.setMaximumSize(new java.awt.Dimension(550, 600));
-        jPanel1.setMinimumSize(new java.awt.Dimension(550, 600));
-        jPanel1.setPreferredSize(new java.awt.Dimension(550, 600));
-
-        jLabelMainImage.setText("jLabel2");
-
-        jLabelMainImageText.setText("Acqured Image");
-
-        jLabelColorCheck.setText("jLabel2");
-
-        jLabelColorCheckText.setText("jLabel2");
-
-        jLabelSegmentone.setText("jLabel2");
-
-        jLabelSegmenttwo.setText("jLabel2");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelMainImage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelMainImageText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelColorCheckText)
-                            .addComponent(jLabelColorCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelSegmenttwo, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabelSegmentone, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelMainImage, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabelMainImageText)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelColorCheck, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
-                            .addComponent(jLabelSegmenttwo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelColorCheckText))
-                    .addComponent(jLabelSegmentone))
-                .addGap(20, 20, 20))
-        );
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(20, 90, 530, 660);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -235,74 +181,126 @@ public class CurrencyExchanger extends javax.swing.JFrame {
         getContentPane().add(jPanel2);
         jPanel2.setBounds(1140, 90, 210, 660);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel3.setMaximumSize(new java.awt.Dimension(550, 600));
-        jPanel3.setMinimumSize(new java.awt.Dimension(550, 600));
-        jPanel3.setPreferredSize(new java.awt.Dimension(550, 600));
+        jLabelMainImage.setMaximumSize(new java.awt.Dimension(517, 218));
+        jLabelMainImage.setMinimumSize(new java.awt.Dimension(517, 218));
+        jLabelMainImage.setPreferredSize(new java.awt.Dimension(517, 218));
+        getContentPane().add(jLabelMainImage);
+        jLabelMainImage.setBounds(50, 100, 517, 218);
 
-        jLabelMergedImage.setText("jLabel2");
+        jLabelDollarVallue.setText("Acqured Image");
+        getContentPane().add(jLabelDollarVallue);
+        jLabelDollarVallue.setBounds(50, 330, 540, 14);
 
-        jLabelGrayScalImage.setText("jLabel2");
+        jLabelSegmentone.setMaximumSize(new java.awt.Dimension(225, 146));
+        jLabelSegmentone.setMinimumSize(new java.awt.Dimension(225, 146));
+        jLabelSegmentone.setName(""); // NOI18N
+        jLabelSegmentone.setPreferredSize(new java.awt.Dimension(225, 146));
+        getContentPane().add(jLabelSegmentone);
+        jLabelSegmentone.setBounds(50, 370, 225, 146);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelMergedImage, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelGrayScalImage, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelMergedImage, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                    .addComponent(jLabelGrayScalImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(223, 223, 223))
-        );
+        jLabelSegmenttwo.setMaximumSize(new java.awt.Dimension(225, 146));
+        jLabelSegmenttwo.setMinimumSize(new java.awt.Dimension(225, 146));
+        jLabelSegmenttwo.setPreferredSize(new java.awt.Dimension(225, 146));
+        getContentPane().add(jLabelSegmenttwo);
+        jLabelSegmenttwo.setBounds(290, 370, 225, 146);
 
-        getContentPane().add(jPanel3);
-        jPanel3.setBounds(570, 90, 550, 660);
+        jLabelColorCheck.setMaximumSize(new java.awt.Dimension(173, 146));
+        jLabelColorCheck.setMinimumSize(new java.awt.Dimension(173, 146));
+        jLabelColorCheck.setPreferredSize(new java.awt.Dimension(173, 146));
+        getContentPane().add(jLabelColorCheck);
+        jLabelColorCheck.setBounds(200, 530, 173, 146);
+
+        jLabelMergedImage.setMaximumSize(new java.awt.Dimension(173, 146));
+        jLabelMergedImage.setMinimumSize(new java.awt.Dimension(173, 146));
+        jLabelMergedImage.setPreferredSize(new java.awt.Dimension(173, 146));
+        getContentPane().add(jLabelMergedImage);
+        jLabelMergedImage.setBounds(630, 160, 173, 146);
+
+        jLabelGrayScalImage.setMaximumSize(new java.awt.Dimension(173, 146));
+        jLabelGrayScalImage.setMinimumSize(new java.awt.Dimension(173, 146));
+        jLabelGrayScalImage.setPreferredSize(new java.awt.Dimension(173, 146));
+        getContentPane().add(jLabelGrayScalImage);
+        jLabelGrayScalImage.setBounds(910, 160, 173, 146);
+
+        jLabelback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SysImages/Back.jpg"))); // NOI18N
+        getContentPane().add(jLabelback);
+        jLabelback.setBounds(0, 0, 1370, 770);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PathConfiguration ImPath = new PathConfiguration();
+//        PathConfiguration ImPath = new PathConfiguration();
+//
+//        String masterPath = (ImPath.GetImagePaths("original", null));
+//        ImageAcquisition.captureImage(masterPath);
 
-        String masterPath = (ImPath.GetImagePaths("original", null));
-        ImageAcquisition.captureImage(masterPath);
-
-        SegmentSize(0);
+        SegmentSize(1);
+           Thread thread = new Thread() {
+         
+        @Override
+        public void run() {
+            
+             getImages();
+        }
+    };
+    thread.start();
 
     }//GEN-LAST:event_jButton1ActionPerformed
       
     
     public static void getImages() {
+        File f = new File(MASTER_PATH);
+if(f.exists() && !f.isDirectory()) { 
+    
+
+        
         ImageIcon MImg = new ImageIcon(MASTER_PATH);
+        Image Mimage = MImg.getImage();
+        Image newMImg = Mimage.getScaledInstance(517, 218,  java.awt.Image.SCALE_SMOOTH);
+        MImg = new ImageIcon(newMImg);
         mainImage.setIcon(MImg);
+                       
         ImageIcon LImg = new ImageIcon(SUB_PATH + "GreenSeal.jpg");
+        Image Limage = LImg.getImage();
+        Image newLImg = Limage.getScaledInstance(173, 146,  java.awt.Image.SCALE_SMOOTH);
+        LImg = new ImageIcon(newLImg);
         Logo.setIcon(LImg);
+        
+        
         ImageIcon POImg = new ImageIcon(SUB_PATH + "image0.jpg");
+        Image POimage = POImg.getImage();
+        Image newPOImg = POimage.getScaledInstance(225, 146,  java.awt.Image.SCALE_SMOOTH);
+        POImg = new ImageIcon(newPOImg);
         ParaOne.setIcon(POImg);
+        
         ImageIcon PTImg = new ImageIcon(SUB_PATH + "image1.jpg");
+        Image PTimage = PTImg.getImage();
+        Image newPTImg = PTimage.getScaledInstance(225, 146,  java.awt.Image.SCALE_SMOOTH);
+        PTImg = new ImageIcon(newPTImg);
         ParTwo.setIcon(PTImg);
+        
+        
         ImageIcon MRImg = new ImageIcon(SUB_PATH + "MergedImg.jpg");
+        Image MRimage = MRImg.getImage();
+        Image newMRImg = MRimage.getScaledInstance(173, 146,  java.awt.Image.SCALE_SMOOTH);
+        MRImg = new ImageIcon(newMRImg);    
         MergIm.setIcon(MRImg);
+        
+        
         ImageIcon GImg = new ImageIcon(SUB_PATH + "GrayScal.jpg");
+        Image Gimage = GImg.getImage();
+        Image newGImg =Gimage.getScaledInstance(173, 146,  java.awt.Image.SCALE_SMOOTH);
+        GImg = new ImageIcon(newGImg);    
         GrayIm.setIcon(GImg);
+}
+
 
     }
     private void AddDollarsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddDollarsActionPerformed
-        int val = getValue();
-        addToList(val);
-        val = getValue2();
-        addToList(val);        // TODO add your handling code here:
+        
+         // TODO add your handling code here:
     }//GEN-LAST:event_AddDollarsActionPerformed
 
     private void ButtonExchnageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExchnageActionPerformed
@@ -365,15 +363,13 @@ public class CurrencyExchanger extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelColorCheck;
-    private javax.swing.JLabel jLabelColorCheckText;
+    private javax.swing.JLabel jLabelDollarVallue;
     private javax.swing.JLabel jLabelGrayScalImage;
     private javax.swing.JLabel jLabelMainImage;
-    private javax.swing.JLabel jLabelMainImageText;
     private javax.swing.JLabel jLabelMergedImage;
     private javax.swing.JLabel jLabelSegmentone;
     private javax.swing.JLabel jLabelSegmenttwo;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabelback;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }
